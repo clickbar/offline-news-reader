@@ -37,15 +37,17 @@ export default {
   name: "Settings",
   data() {
     return {
-      darkModeEnabled: document.documentElement.classList.contains('dark')
+      darkModeEnabled: localStorage.getItem('theme') === 'dark'
     }
   },
   methods: {
     toggleDarkMode() {
       if (this.darkModeEnabled) {
         document.documentElement.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
       } else {
         document.documentElement.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
       }
       this.darkModeEnabled = !this.darkModeEnabled
     }
