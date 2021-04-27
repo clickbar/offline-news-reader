@@ -3,6 +3,12 @@
     v-if="loading"
     class="mt-32 h-12 w-12 mx-auto"
   />
+  <div
+    v-else-if="error"
+    class="py-12 text-2xl text-center "
+  >
+    Error fetching article
+  </div>
   <div v-else>
     <article class="mb-12">
       <img

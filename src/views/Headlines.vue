@@ -5,6 +5,7 @@
     </div>
     <div class="flex-1" />
     <button
+      v-show="online"
       class="bg-indigo-600 text-white px-3 font-medium py-1 rounded-md"
       type="button"
       @click="fetchHeadlines"
@@ -27,6 +28,7 @@
 import { ref } from "vue"
 import NewsList from "../components/NewsList.vue"
 import Spinner from "../components/Spinner.vue"
+import { online } from "../composables/connectivity"
 
 export default {
   name: "Headlines",
@@ -53,6 +55,7 @@ export default {
     }
 
     return {
+      online,
       loading,
       error,
       headlines,
