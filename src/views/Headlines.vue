@@ -1,16 +1,19 @@
 <template>
-  <div class="flex items-center">
-    <div v-if="updatedAt">
-      Last update: {{ updatedAt.toLocaleString() }}
+  <div class="flex items-center gap-4">
+    <div
+      v-if="updatedAt"
+      class="font-medium text-sm md:text-base"
+    >
+      Letztes Update: {{ updatedAt.toLocaleString() }}
     </div>
     <div class="flex-1" />
     <button
       v-show="online"
-      class="bg-indigo-600 text-white px-3 font-medium py-1 rounded-md"
+      class="btn-primary"
       type="button"
       @click="load(true)"
     >
-      Refresh
+      Aktualisieren
     </button>
   </div>
   <Spinner
@@ -19,7 +22,7 @@
   />
   <NewsList
     v-else
-    class="mt-8"
+    class="mt-4 lg:mt-8"
     :news="headlines"
   />
 </template>

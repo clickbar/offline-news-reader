@@ -5,7 +5,7 @@
     role="alert"
   >
     <div>
-      Downloading news for offline use...
+      Headlines werden heruntergeladen...
     </div>
     <div class="flex-1" />
     <Spinner class="h-4 w-4" />

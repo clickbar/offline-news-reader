@@ -3,7 +3,7 @@
     v-if="articles.length === 0"
     class="py-12 text-2xl text-center"
   >
-    No articles saved yet
+    Keine Artikel gespeichert.
   </div>
   <NewsList
     v-else

@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-gray-800 sticky top-0 z-10">
+  <nav class="bg-gray-800 left-0 right-0 fixed top-0 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center h-16">
         <img
@@ -7,11 +7,10 @@
           src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
           alt="Workflow"
         >
-        <h1 class="ml-4 text-white font-bold text-xl">
+        <h1 class="ml-4 hidden md:block text-white font-bold text-xl">
           Offline News Reader
         </h1>
-        <div class="ml-10 flex items-baseline space-x-4">
-          <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <div class="ml-4 md:ml-10 flex items-baseline space-x-4">
           <router-link
             v-for="navItem in navItems"
             :key="navItem.name"
@@ -61,7 +60,7 @@ export default {
         to: '/headlines'
       },
         {
-          name: 'Saved News',
+          name: 'Gespeicherte Artikel',
           to: '/saved'
         }
       ]
@@ -72,7 +71,7 @@ export default {
 
 <style scoped>
 .nav-item {
-  @apply px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white;
+  @apply px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white whitespace-nowrap;
 }
 
 .nav-item--active {

@@ -6,25 +6,26 @@
   >
     <div class="message">
       <span v-if="offlineReady">
-        App ready to work offline
+        Die App ist nun offline verfügbar
       </span>
       <span v-else>
-        New content available, click reload to update.
+        Update verfügbar, bitte neu laden
       </span>
     </div>
     <div class="flex-1" />
     <button
       v-if="needRefresh"
-      class="btn-primary"
+      class="btn-primary ml-4"
       @click="updateServiceWorker()"
     >
-      Reload
+      Neuladen
     </button>
     <button
-      class="btn-secondary ml-2"
+      v-else
+      class="btn-secondary ml-4"
       @click="close"
     >
-      Close
+      Schließen
     </button>
   </div>
 </template>

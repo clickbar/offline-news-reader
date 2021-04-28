@@ -7,13 +7,13 @@
 }
 
 .btn-primary {
-    @apply px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+    @apply px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap;
 }
 
 .btn-secondary {
-    @apply px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+    @apply px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap;
 }
 
 .notification {
-    @apply fixed right-0 bottom-0 left-0 mx-auto max-w-xl mb-4 rounded-md shadow flex bg-white p-4 items-center dark:bg-gray-800;
+    @apply fixed right-0 bottom-0 left-0 mx-4 md:mx-auto max-w-xl mb-4 rounded-md shadow flex bg-white p-4 items-center dark:bg-gray-800;
 }

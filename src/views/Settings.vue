@@ -5,7 +5,7 @@
         id="availability-label"
         class="flex-grow flex flex-col"
       >
-        <span class="text-sm font-medium text-gray-900 dark:text-white">Enable Dark Mode</span>
+        <span class="text-sm font-medium text-gray-900 dark:text-white">Nutze Dark Mode</span>
       </span>
       <button
         type="button"

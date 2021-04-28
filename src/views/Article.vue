@@ -7,7 +7,7 @@
     v-else-if="error"
     class="py-12 text-2xl text-center "
   >
-    Error fetching article
+    Fehler beim Laden des Artikels.
   </div>
   <div v-else>
     <article class="mb-12">
@@ -15,9 +15,9 @@
         v-if="article.teaserImage"
         :src="article.teaserImage.videowebl.imageurl"
         :alt="article.teaserImage.alttext"
-        class="h-[24rem] lg:h-[32rem] w-full object-cover"
+        class="h-[16rem] md:h-[24rem] lg:h-[32rem] w-full object-cover"
       >
-      <div class="mt-8 px-4 sm:px-6 lg:px-8">
+      <div class="mt-8">
         <div class="text-lg max-w-prose mx-auto">
           <h1>
             <span class="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">{{
@@ -30,7 +30,7 @@
             }}</span>
           </h1>
         </div>
-        <div class="mt-6 prose prose-indigo prose-lg text-gray-500 dark:text-white dark:text-opacity-80 mx-auto">
+        <div class="mt-6 prose prose-indigo lg:prose-lg text-gray-500 dark:text-white dark:text-opacity-80 mx-auto">
           <p
             v-for="(contentBlock, i) in textContent"
             :key="i"
@@ -44,20 +44,27 @@
         class="flex justify-end items-center mx-auto max-w-3xl px-4 h-full gap-2 text-gray-600 dark:text-white dark:text-opacity-70"
       >
         <button
-          class=""
+          class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
           @click="$router.back()"
         >
-          &leftarrow;
-          Zurück
+          <IconChevronLeft class="h-5 w-5" />
         </button>
         <div class="flex-1" />
         <a
+          v-if="online"
           :href="article.detailsweb"
           target="_blank"
           class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
         >
-          <IconShare class="h-5 w-5" />
+          <IconExternalLink class="h-5 w-5" />
         </a>
+        <button
+          v-if="canShare"
+          class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
+          @click="share"
+        >
+          <IconShare class="h-5 w-5" />
+        </button>
         <button
           class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
           @click="saveOrRemoveArticle"
@@ -74,21 +81,30 @@
 </template>
 
 <script>
-import {toRaw} from 'vue'
+import { toRaw } from 'vue'
 import Spinner from "../components/Spinner.vue"
 import IconShare from "../components/IconShare.vue"
 import IconHeart from "../components/IconHeart.vue"
+import IconExternalLink from "../components/IconExternalLink.vue"
+import IconChevronLeft from "../components/IconChevronLeft.vue"
 import articles from "../database/articles"
+import { online } from "../composables/connectivity"
 
 export default {
   name: "Article",
-  components: { IconHeart, IconShare, Spinner },
+  components: { IconExternalLink, IconChevronLeft, IconHeart, IconShare, Spinner },
+  setup() {
+    return {
+      online
+    }
+  },
   data() {
     return {
       loading: false,
       error: false,
       article: null,
-      saved: false
+      saved: false,
+      canShare: Boolean(navigator.share)
     }
   },
   computed: {
@@ -128,6 +144,12 @@ export default {
       }
       this.saved = !this.saved
     },
+    share() {
+      navigator.share({
+        title: this.article.title,
+        url: this.article.detailsweb
+      })
+    }
   }
 }
 </script>

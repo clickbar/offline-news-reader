@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen dark:bg-gray-900 dark:text-white">
     <TheNav />
-    <main class="max-w-7xl p-4 lg:p-8 mx-auto">
+    <main class="max-w-7xl p-4 lg:p-8 mt-16 mx-auto">
       <router-view />
     </main>
     <ReloadPrompt />
