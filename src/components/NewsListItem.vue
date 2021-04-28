@@ -8,7 +8,7 @@
         v-if="news.teaserImage"
         loading="lazy"
         class="h-48 w-full object-cover"
-        :src="news.teaserImage.videowebm.imageurl"
+        :src="news.teaserImage.videowebl.imageurl"
         :alt="news.teaserImage.alttext"
       >
       <div

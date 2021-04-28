@@ -8,7 +8,7 @@
       v-show="online"
       class="bg-indigo-600 text-white px-3 font-medium py-1 rounded-md"
       type="button"
-      @click="fetchHeadlines"
+      @click="load(true)"
     >
       Refresh
     </button>
@@ -29,24 +29,26 @@ import { ref } from "vue"
 import NewsList from "../components/NewsList.vue"
 import Spinner from "../components/Spinner.vue"
 import { online } from "../composables/connectivity"
+import { useNewsCache } from "../composables/newsCache"
 
 export default {
   name: "Headlines",
   components: { Spinner, NewsList },
   setup() {
 
+    const {
+      fetchHeadlines,
+      updatedAt
+    } = useNewsCache()
+
     const loading = ref(false)
     const error = ref(false)
     const headlines = ref([])
-    const updatedAt = ref(null)
 
-    async function fetchHeadlines() {
+    async function load(refresh = false) {
       try {
         loading.value = true
-        const response = await fetch('https://www.tagesschau.de/api2/news/')
-        const data = await response.json()
-        headlines.value = data.news
-        updatedAt.value = new Date()
+        headlines.value = await fetchHeadlines(refresh)
       } catch (e) {
         error.value = true
       } finally {
@@ -60,11 +62,11 @@ export default {
       error,
       headlines,
       updatedAt,
-      fetchHeadlines,
+      load,
     }
   },
   created() {
-    this.fetchHeadlines()
+    this.load()
   }
 }
 </script>

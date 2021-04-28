@@ -1,7 +1,6 @@
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
 import { NavigationRoute, registerRoute } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
-import { ExpirationPlugin } from 'workbox-expiration';
 
 addEventListener('message', (event) => {
     if (event.data && event.data.type === 'SKIP_WAITING')
@@ -11,15 +10,11 @@ addEventListener('message', (event) => {
 // self.__WB_MANIFEST is default injection point
 precacheAndRoute(self.__WB_MANIFEST)
 
-// runtime cache for https://tagesschau.de
+// runtime cache for news and related content from https://www.tagesschau.de
 registerRoute(
-    ({ url }) => url.origin === 'https://tagesschau.de',
+    ({ url }) => url.origin === 'https://www.tagesschau.de',
     new CacheFirst({
-        plugins: [
-            new ExpirationPlugin({
-                maxEntries: 200,
-            }),
-        ]
+        cacheName: 'news'
     }),
 );
 

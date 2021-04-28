@@ -5,15 +5,17 @@
       <router-view />
     </main>
     <ReloadPrompt />
+    <CacheStatusIndicator />
   </div>
 </template>
 
 <script>
 import TheNav from "./components/TheNav.vue"
 import ReloadPrompt from "./components/ReloadPrompt.vue"
+import CacheStatusIndicator from "./components/CacheStatusIndicator.vue"
 export default {
   name: 'App',
-  components: { ReloadPrompt, TheNav }
+  components: { CacheStatusIndicator, ReloadPrompt, TheNav }
 }
 </script>
 
