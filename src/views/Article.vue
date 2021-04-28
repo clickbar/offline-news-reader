@@ -12,21 +12,21 @@
   <div v-else>
     <article class="mb-12">
       <img
-        v-if="news.teaserImage"
-        :src="news.teaserImage.videowebl.imageurl"
-        :alt="news.teaserImage.alttext"
+        v-if="article.teaserImage"
+        :src="article.teaserImage.videowebl.imageurl"
+        :alt="article.teaserImage.alttext"
         class="h-[24rem] lg:h-[32rem] w-full object-cover"
       >
       <div class="mt-8 px-4 sm:px-6 lg:px-8">
         <div class="text-lg max-w-prose mx-auto">
           <h1>
             <span class="block text-base text-center text-indigo-600 font-semibold tracking-wide uppercase">{{
-              news.topline
+              article.topline
             }}</span>
             <span
               class="mt-2 block text-3xl text-center leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
             >{{
-              news.title
+              article.title
             }}</span>
           </h1>
         </div>
@@ -52,17 +52,20 @@
         </button>
         <div class="flex-1" />
         <a
-          :href="news.detailsweb"
+          :href="article.detailsweb"
           target="_blank"
           class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
         >
           <IconShare class="h-5 w-5" />
         </a>
-        <button class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700">
+        <button
+          class="p-2 rounded-full hover:bg-gray-50 dark:hover:bg-gray-700"
+          @click="saveOrRemoveArticle"
+        >
           <IconHeart
             class="h-5 w-5"
-            :class="isSaved && 'text-red-600'"
-            :fill="isSaved"
+            :class="saved && 'text-red-600'"
+            :fill="saved"
           />
         </button>
       </div>
@@ -71,9 +74,11 @@
 </template>
 
 <script>
+import {toRaw} from 'vue'
 import Spinner from "../components/Spinner.vue"
 import IconShare from "../components/IconShare.vue"
 import IconHeart from "../components/IconHeart.vue"
+import articles from "../database/articles"
 
 export default {
   name: "Article",
@@ -82,33 +87,47 @@ export default {
     return {
       loading: false,
       error: false,
-      news: null
+      article: null,
+      saved: false
     }
   },
   computed: {
     textContent() {
-      return this.news.content.filter((contentBlock) => contentBlock.type === 'text' || contentBlock.type === 'headline')
-    },
-    isSaved() {
-      return true
+      return this.article.content.filter((contentBlock) => contentBlock.type === 'text' || contentBlock.type === 'headline')
     }
   },
   created() {
-    this.fetchDetails()
+    this.load()
   },
   methods: {
-    async fetchDetails() {
+    async load() {
+      this.loading = true
+      // load the article from the databases first
+      const article = await articles.get(this.$route.params.id)
+      if (article) {
+        this.saved = true
+        this.article = article
+      }
+
+      // fall back to fetch
       const url = this.$route.query.url
       try {
-        this.loading = true
         const response = await fetch(url)
-        this.news = await response.json()
+        this.article = await response.json()
       } catch (e) {
         this.error = true
       } finally {
         this.loading = false
       }
-    }
+    },
+    async saveOrRemoveArticle() {
+      if (this.saved) {
+        await articles.remove(this.article)
+      } else {
+        await articles.save(toRaw(this.article))
+      }
+      this.saved = !this.saved
+    },
   }
 }
 </script>

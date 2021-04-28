@@ -1,12 +1,12 @@
 import { createWebHistory, createRouter, } from "vue-router";
 import Article from "./views/Article.vue"
-import SavedNews from "./views/SavedNews.vue"
+import SavedArticles from "./views/SavedArticles.vue"
 import Headlines from "./views/Headlines.vue"
 import Settings from "./views/Settings.vue"
 
 const routes = [
     { path: '/news/:id', name: 'article', component: Article },
-    { path: '/saved', component: SavedNews },
+    { path: '/saved', component: SavedArticles },
     { path: '/headlines', component: Headlines },
     { path: '/settings', component: Settings },
     { path: '/', redirect: '/headlines' },
