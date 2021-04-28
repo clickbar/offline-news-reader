@@ -18,19 +18,20 @@ async function fetchHeadlines(refresh = false) {
 
     const response = await fetch('https://www.tagesschau.de/api2/news/')
     const { news } = await response.json()
+    const stories = news.filter((article) => article.type === 'story')
 
     if (refresh) {
         // the cache was cleared, populate it again
         // using nextTick to avoid stutter
         nextTick(() => {
-            downloadAndCache(news)
+            downloadAndCache(stories)
         })
         // and set updatedAt to the current date
         updatedAt.value = new Date()
         window.localStorage.setItem("updatedAt", updatedAt.value.toISOString())
     }
 
-    return news
+    return stories
 }
 
 async function downloadAndCache(news) {
