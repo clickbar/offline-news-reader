@@ -123,6 +123,8 @@ export default {
       if (article) {
         this.saved = true
         this.article = article
+        this.loading = false
+        return
       }
 
       // fall back to fetch
