@@ -3,7 +3,7 @@
 This repository contains the source code for the Offline News Reader PWA, first shown at the second installment of our [clickbar. Fullstack Talks](https://www.meetup.com/de-DE/clickbar-fullstack-talks/) meetup.
 The accompanying slides can be found [here](https://clickbar-fullstack-talks-2.netlify.app). 
 
-> ⚠ Warning: this app uses an undocumented API to fetch its news from [tagesschau.de](tagesschau.de). Use at your own risk. 
+> ⚠ Warning: this app uses an undocumented API to fetch its news from [tagesschau.de](tagesschau.de). Use at your own risk!
 
 ## Features
 
